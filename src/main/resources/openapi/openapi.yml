@@ -1,0 +1,30 @@
+openapi: 3.1.0
+info:
+  title: Agrobook Resource Server
+  description: Agrobook Resource Server REST API
+  version: '1.0-SNAPSHOT'
+servers:
+  - url: http://localhost:5050/agrobook/api
+tags:
+  - name: failing
+    description: Endpoint which always returns an error.
+paths:
+  /:
+    get:
+      tags:
+        - failing
+      operationId: failingRequest
+      summary: Always fails
+      description: Produces sample error response.
+      responses:
+        200:
+          description: Never returned.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+          content:
+            text/plain:
+              schema:
+                type: string
