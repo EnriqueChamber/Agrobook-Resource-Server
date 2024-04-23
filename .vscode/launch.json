@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AgrobookApplication<api>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "es.agrobook.api.AgrobookApplication",
+            "projectName": "api",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
