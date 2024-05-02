@@ -18,6 +18,7 @@
     <properties>
         <!-- Third-party libraries -->
         <springdoc-openapi-ui.version>2.2.0</springdoc-openapi-ui.version>
+        <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <cucumber.version>7.15.0</cucumber.version>
 
@@ -130,7 +131,14 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
+            <!-- Not Necessary
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.11.0.3922</version>
+            </plugin>-->
+
+			<!--<plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>${openapi-generator-maven-plugin.version}</version>
@@ -163,7 +171,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
 			
             <plugin>

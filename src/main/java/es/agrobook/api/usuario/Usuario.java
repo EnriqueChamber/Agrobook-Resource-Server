@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,30 +17,39 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Builder
+@ApiModel(description = "User model")
 public class Usuario implements UserDetails{
 
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "The unique ID of the user")
 	private Long id;
 
 	@Column(nullable = false)
+    @ApiModelProperty(notes = "The unique username of the user")
 	private String username;
 
 	@Column(nullable = false)
+    @ApiModelProperty(notes = "The password of the user")
 	private String password;
 
 	@Column(nullable = false)
+    @ApiModelProperty(notes = "The enabled check of the user")
 	private Boolean enabled;
 
 	@Column(nullable = false)
+    @ApiModelProperty(notes = "The expired account check of the user")
 	private Boolean expiredAccount;
 
 	@Column(nullable = false)
+    @ApiModelProperty(notes = "The locked check of the user")
 	private Boolean locked;
 
 	@Column(nullable = false)
+    @ApiModelProperty(notes = "The expired credentials check of the user")
 	private Boolean expiredCredentials;
 
     /* ETag Filter and Versioning is not implemented for now
@@ -46,7 +57,17 @@ public class Usuario implements UserDetails{
     private long version;*/
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @ApiModelProperty(notes = "The authorities list of the user")
     private List<String> authorities;
+
+
+	/*@ManyToOne
+	private Usuario supervisor;
+
+	@OneToMany(mappedBy = "supervisor")
+	private List<Usuario> supervisados;*/
+
+
 	
 	@Override
 	public List<? extends GrantedAuthority> getAuthorities() {
@@ -84,29 +105,4 @@ public class Usuario implements UserDetails{
 	public String getUsername() {
 		return username;
 	}
-	
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-
-		String concatenatedAuthorities = authorities.stream().sorted().collect(Collectors.joining());
-		String concatenatedUsuarioAuthorities = usuario.authorities.stream().sorted().collect(Collectors.joining());
-
-        return Objects.equals(id, usuario.id) &&
-               Objects.equals(username, usuario.username) &&
-               Objects.equals(password, usuario.password) &&
-               Objects.equals(enabled, usuario.enabled) &&
-               Objects.equals(expiredAccount, usuario.expiredAccount) &&
-               Objects.equals(locked, usuario.locked) &&
-               Objects.equals(expiredCredentials, usuario.expiredCredentials) &&
-			   Objects.equals(concatenatedAuthorities, concatenatedUsuarioAuthorities);
-    }
-
-    @Override
-    public int hashCode() {
-		String concatenatedAuthorities = authorities.stream().sorted().collect(Collectors.joining());
-        return Objects.hash(id, username, password, enabled, expiredAccount, locked, expiredCredentials, concatenatedAuthorities);
-    }
 }
